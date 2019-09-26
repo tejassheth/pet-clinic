@@ -1,19 +1,5 @@
-
-
-group 'org.learn'
-version '0.0.1-SNAPSHOT'
-
-sourceCompatibility = 1.8
-jar{
-    enabled =true
-}
-repositories {
-    mavenCentral()
-}
-
 dependencies {
     implementation project(':pet-clinic-data')
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.springframework.boot:spring-boot-starter-web'
-
 }
