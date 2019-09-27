@@ -3,12 +3,6 @@ plugins {
 	id 'io.spring.dependency-management' version '1.0.8.RELEASE'
 	id 'java'
 }
-jar{
-	enabled =true
-}
-
-
-
 configurations {
 	developmentOnly
 	runtimeClasspath {
@@ -20,6 +14,10 @@ configurations {
 }
 
 allprojects {
+	jar{
+		enabled =true
+	}
+
 	group 'org.learn'
 	version '0.0.1-SNAPSHOT'
 	sourceCompatibility = '1.8'
