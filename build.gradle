@@ -65,6 +65,9 @@ jar {
     enabled = true
 }
 
+springBoot {
+    mainClassName = 'org.learn.org.learn.petclinic.PetClinicApplication'
+}
 test {
     useJUnitPlatform()
 }
