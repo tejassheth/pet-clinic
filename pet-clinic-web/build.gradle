@@ -1,45 +1,24 @@
 jar {
     enabled = true
 }
-buildscript {
-    repositories {
-        jcenter()
-    }
-    dependencies {
-        classpath 'ro.isdc.wro4j.gradle:wro4j-gradle-plugin:1.8.0.Beta4'
-    }
-}
 
-apply plugin : 'wro4j'
-
-webResources {
-    bundle ('core') {
-        js 'js/**/*.js'
-        preProcessor 'jsMin'
-    }
-
-    bundle ('libs') {
-        js 'webjars/jquery/2.1.4/jquery.min.js'
-    }
-
-    bundle ('theme-default') {
-        css 'webjars/bootstrap/3.3.4/less/bootstrap.less'
-//        css 'themes/default/main.css'
-
-//        cssOverrideImport 'variables.less', '../../../../themes/default/variables.less'
-        preProcessor 'less4j', 'cssUrlRewriting'
-    }
-
-    assets {
-        include 'themes/default/images/**'
-    }
-}
 dependencies {
     compile  project(':pet-clinic-data')
 
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
-    webjars 'org.webjars:jquery:2.1.4'
-    webjars 'org.webjars:bootstrap:3.3.4'
+    // https://mvnrepository.com/artifact/org.webjars/webjars-locator
+    compile group: 'org.webjars', name: 'webjars-locator', version: '0.37'
+
+    // https://mvnrepository.com/artifact/org.webjars/jquery
+    compile group: 'org.webjars', name: 'jquery', version: '2.1.4'
+
+    // https://mvnrepository.com/artifact/org.webjars/bootstrap
+    compile group: 'org.webjars', name: 'bootstrap', version: '3.3.4'
+
+    // https://mvnrepository.com/artifact/org.webjars/jquery-ui
+    compile group: 'org.webjars', name: 'jquery-ui', version: '1.11.4'
+
 }
+
