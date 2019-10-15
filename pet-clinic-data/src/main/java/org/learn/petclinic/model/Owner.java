@@ -1,15 +1,14 @@
 package org.learn.petclinic.model;
 
-import java.util.Set;
+import lombok.Getter;
+import lombok.Setter;
 
+import java.util.Set;
+@Setter
+@Getter
 public class Owner extends Person {
     private Set<Pet> pets;
-
-    public Set<Pet> getPets() {
-        return pets;
-    }
-
-    public void setPets(Set<Pet> pets) {
-        this.pets = pets;
-    }
+    private String address;
+    private String city;
+    private String telephone;
 }
