@@ -2,8 +2,10 @@ package org.learn.petclinic.bootstrap;
 
 import lombok.extern.slf4j.Slf4j;
 import org.learn.petclinic.model.Owner;
+import org.learn.petclinic.model.PetType;
 import org.learn.petclinic.model.Vet;
 import org.learn.petclinic.services.OwnerService;
+import org.learn.petclinic.services.PetTypeService;
 import org.learn.petclinic.services.VetService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -14,14 +16,24 @@ public class DataLoader implements CommandLineRunner {
 
     private final OwnerService ownerService;
     private final VetService vetService;
-
-    public DataLoader(OwnerService ownerService, VetService vetService) {
+    private final PetTypeService petTypeService;
+    public DataLoader(OwnerService ownerService, VetService vetService, PetTypeService petTypeService) {
         this.ownerService = ownerService;
         this.vetService = vetService;
+        this.petTypeService = petTypeService;
     }
 
     @Override
     public void run(String... args) throws Exception {
+
+        PetType dog= new PetType();
+        dog.setName("Dog");
+        PetType savedDogType= petTypeService.save(dog);
+
+        PetType cat= new PetType();
+        cat.setName("Cat");
+        PetType savedCatType= petTypeService.save(cat);
+
         Owner owner1= new Owner();
         owner1.setFirstName("Tejas");
         owner1.setLastName("Sheth");
