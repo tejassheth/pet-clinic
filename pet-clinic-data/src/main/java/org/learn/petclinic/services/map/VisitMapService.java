@@ -1,8 +1,6 @@
 package org.learn.petclinic.services.map;
 
-import org.learn.petclinic.model.Vet;
 import org.learn.petclinic.model.Visit;
-import org.learn.petclinic.services.VetService;
 import org.learn.petclinic.services.VisitService;
 
 import java.util.Set;
