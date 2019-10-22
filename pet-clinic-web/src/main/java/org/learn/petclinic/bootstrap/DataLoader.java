@@ -1,11 +1,9 @@
 package org.learn.petclinic.bootstrap;
 
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.learn.petclinic.model.*;
-import org.learn.petclinic.services.OwnerService;
-import org.learn.petclinic.services.PetTypeService;
-import org.learn.petclinic.services.SpecialtyService;
-import org.learn.petclinic.services.VetService;
+import org.learn.petclinic.services.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -13,19 +11,14 @@ import java.time.LocalDate;
 
 @Component
 @Slf4j
+@AllArgsConstructor
 public class DataLoader implements CommandLineRunner {
 
     private final OwnerService ownerService;
     private final VetService vetService;
     private final PetTypeService petTypeService;
     private final SpecialtyService specialtyService;
-    public DataLoader(OwnerService ownerService, VetService vetService, PetTypeService petTypeService,
-                      SpecialtyService specialtyService) {
-        this.ownerService = ownerService;
-        this.vetService = vetService;
-        this.petTypeService = petTypeService;
-        this.specialtyService = specialtyService;
-    }
+    private final VisitService visitService;
 
     @Override
     public void run(String... args) throws Exception {
@@ -73,6 +66,14 @@ public class DataLoader implements CommandLineRunner {
         owner1.getPets().add(motiDog);
         ownerService.save(owner1);
 
+
+        Visit dogVisit= new Visit();
+        dogVisit.setPet(motiDog);
+        dogVisit.setDate(LocalDate.now());
+        dogVisit.setDescription("Sneezy Kitty");
+
+        visitService.save(dogVisit);
+
         Owner owner2 = new Owner();
         owner2.setFirstName("Radhika");
         owner2.setLastName("Sheth");
@@ -89,6 +90,13 @@ public class DataLoader implements CommandLineRunner {
         owner2.getPets().add(tituCat);
 
         ownerService.save(owner2);
+
+        Visit catVisit= new Visit();
+        catVisit.setPet(tituCat);
+        catVisit.setDate(LocalDate.now());
+        catVisit.setDescription("Sneezy Kitty");
+
+        visitService.save(catVisit);
         log.info("Loaded Owners.....");
 
         Vet vet1 = new Vet();
