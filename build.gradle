@@ -1,28 +1,24 @@
-buildscript {
-    ext {
-        springBootVersion = '2.1.8.RELEASE'
-    }
-    repositories {
-        mavenCentral()
-        jcenter()
-    }
-    dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-        classpath 'com.github.jengelman.gradle.plugins:shadow:4.0.3'
-    }
-}
-
 plugins {
-    id "com.eriwen.gradle.css" version "2.14.0"
+    id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+    id 'org.springframework.boot' version '2.2.0.RELEASE'
+    id "io.freefair.lombok" version "4.1.2"
+    id "com.github.johnrengelman.shadow" version "5.1.0"
+    id "java"
+    id "idea"
 }
-apply plugin : 'idea'
 
+repositories {
+    mavenCentral()
+    jcenter()
+    maven { url 'https://repo.spring.io/milestone' }
+    maven { url "https://repo.spring.io/release" }
+    maven { url 'https://repo.spring.io/snapshot' }
+}
 
 allprojects{
     apply plugin: 'org.springframework.boot'
     apply plugin: 'io.spring.dependency-management'
     apply plugin: 'java'
-    apply plugin: 'com.github.johnrengelman.shadow'
 
     configurations {
         developmentOnly
@@ -42,10 +38,10 @@ allprojects{
     repositories {
         mavenCentral()
         jcenter()
+        maven { url 'https://repo.spring.io/milestone' }
+        maven { url 'https://repo.spring.io/snapshot' }
     }
     dependencies {
-        compileOnly 'org.projectlombok:lombok'
-        annotationProcessor 'org.projectlombok:lombok'
         testImplementation('org.springframework.boot:spring-boot-starter-test') {
             exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
         }
@@ -53,12 +49,12 @@ allprojects{
 }
 
 dependencies {
-    compileOnly 'org.projectlombok:lombok'
+    implementation 'org.springframework.boot:spring-boot-starter'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
-    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
     compile project(':pet-clinic-web')
-    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-actuator
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: '2.1.8.RELEASE'
 }
 
 jar {
@@ -66,7 +62,7 @@ jar {
 }
 
 springBoot {
-    mainClassName = 'org.learn.org.learn.petclinic.PetClinicApplication'
+    mainClassName = 'org.learn.petclinic.PetClinicApplication'
 }
 test {
     useJUnitPlatform()
