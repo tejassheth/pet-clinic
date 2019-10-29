@@ -10,3 +10,23 @@ dependencies {
     runtimeOnly 'com.h2database:h2'
     runtimeOnly 'mysql:mysql-connector-java'
 }
+test {
+    dependsOn 'cleanTest'
+    useJUnitPlatform()
+    println("Testing Pet-Clinic-Data")
+    testLogging {
+        events 'PASSED', 'FAILED', 'SKIPPED'
+    }
+    reports {
+        junitXml.enabled = false
+        html.enabled = true
+    }
+    afterSuite { desc, result ->
+        if (!desc.parent)
+            println("${result.resultType} " +
+                    "(${result.testCount} tests, " +
+                    "${result.successfulTestCount} successes, " +
+                    "${result.failedTestCount} failures, " +
+                    "${result.skippedTestCount} skipped)")
+    }
+}

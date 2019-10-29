@@ -30,6 +30,7 @@ public class Pet extends BaseEntity {
     private LocalDate birthDate;
 
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "pet")
+    @Builder.Default
     private Set<Visit> visits = new HashSet<>();
 
 }

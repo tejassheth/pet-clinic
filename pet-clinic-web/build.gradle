@@ -1,9 +1,47 @@
 jar {
     enabled = true
 }
+sourceSets {
+    intTest {
+        compileClasspath += sourceSets.main.output
+        runtimeClasspath += sourceSets.main.output
+    }
+}
 
+configurations {
+    intTestImplementation.extendsFrom implementation
+    intTestRuntimeOnly.extendsFrom runtimeOnly
+}
+
+task integrationTest(type: Test) {
+    dependsOn 'cleanIntegrationTest'
+    useJUnitPlatform()
+    description = 'Runs integration tests.'
+    group = 'verification'
+    testClassesDirs = sourceSets.intTest.output.classesDirs
+    classpath = sourceSets.intTest.runtimeClasspath
+    reports {
+        junitXml.enabled = false
+        html.enabled = true
+    }
+    shouldRunAfter test
+    testLogging {
+        events 'PASSED', 'FAILED', 'SKIPPED'
+    }
+    afterSuite { desc, result ->
+        if (!desc.parent)
+            println("${result.resultType} " +
+                    "(${result.testCount} tests, " +
+                    "${result.successfulTestCount} successes, " +
+                    "${result.failedTestCount} failures, " +
+                    "${result.skippedTestCount} skipped)")
+    }
+}
+
+check.dependsOn integrationTest
 dependencies {
     compile  project(':pet-clinic-data')
+    //testCompile project(':pet-clinic-data')
 
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -20,5 +58,28 @@ dependencies {
     // https://mvnrepository.com/artifact/org.webjars/jquery-ui
     compile group: 'org.webjars', name: 'jquery-ui', version: '1.11.4'
 
+    intTestImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+}
+test {
+    dependsOn 'cleanTest'
+    useJUnitPlatform()
+    println("Testing Pet-Clinic-Web")
+    testLogging {
+        events 'PASSED', 'FAILED', 'SKIPPED'
+    }
+    reports {
+        junitXml.enabled = false
+        html.enabled = true
+    }
+    afterSuite { desc, result ->
+        if (!desc.parent)
+            println("${result.resultType} " +
+                    "(${result.testCount} tests, " +
+                    "${result.successfulTestCount} successes, " +
+                    "${result.failedTestCount} failures, " +
+                    "${result.skippedTestCount} skipped)")
+    }
 }
 
