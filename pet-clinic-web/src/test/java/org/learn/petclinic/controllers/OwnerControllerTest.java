@@ -10,7 +10,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.ui.Model;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -42,9 +41,6 @@ class OwnerControllerTest {
     Set<Owner> owners;
 
     MockMvc mockMvc;
-
-    @Mock
-    Model model;
 
     @BeforeEach
     void setUp() {
