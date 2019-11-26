@@ -8,7 +8,6 @@ import org.learn.petclinic.services.PetService;
 import org.learn.petclinic.services.PetTypeService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
@@ -21,8 +20,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.TreeMap;
 
 @Controller
 @RequestMapping("/owners/{ownerId}/pets")
@@ -45,7 +42,6 @@ public class PetController {
     public Owner findOwner(@PathVariable("ownerId") Long ownerId) {
         return ownerService.findById(ownerId);
     }
-
 
     @InitBinder("owner")
     public void initOwnerBinder(WebDataBinder dataBinder) {
